@@ -1,22 +1,20 @@
 package org.learning.springpizza.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.net.URL;
-
+@Entity
+@Table(name = "pizza")
 public class Pizza {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
     private String name;
     private String description;
-    private URL photo;
+    private String photo;
     @Column(nullable = false)
     private BigDecimal price;
 
@@ -44,11 +42,11 @@ public class Pizza {
         this.description = description;
     }
 
-    public URL getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(URL photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
