@@ -2,6 +2,8 @@ package org.learning.springpizza.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -9,12 +11,15 @@ import java.net.URL;
 @Table(name = "pizza")
 public class Pizza {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Serve per far aumentare automaticamente l'id
     private Integer id;
+    @NotEmpty(message = "Inserisci un nome valido")
     @Column(nullable = false)
     private String name;
+    @Lob
     private String description;
     private String photo;
+    @NotNull(message = "Prezzo non valido")
     @Column(nullable = false)
     private BigDecimal price;
 
