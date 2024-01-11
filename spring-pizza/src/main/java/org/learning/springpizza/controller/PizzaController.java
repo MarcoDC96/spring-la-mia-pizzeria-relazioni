@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,35 @@ public class PizzaController {
     }
     Pizza savedPizza = pizzaRepository.save(formPizza);
     return "redirect:/pizza/show/" + savedPizza.getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model){
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if(result.isPresent()){
+        model.addAttribute("pizza", result.get());
+        return "pizzas/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id: " + id + " is not found");
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id,@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult){
+        {
+            Optional<Pizza> result = pizzaRepository.findById(id);
+            if (result.isPresent()){
+                Pizza pizzaToEdit = result.get();
+                if (bindingResult.hasErrors()){
+                    return "/pizzas/edit";
+                }
+                formPizza.setPhoto(pizzaToEdit.getPhoto());
+                Pizza savedPizza = pizzaRepository.save(formPizza);
+                return "redirect:/pizza/show/" + id;
+            }else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id" + id + "not found");
+            }
+        }
+
     }
 }

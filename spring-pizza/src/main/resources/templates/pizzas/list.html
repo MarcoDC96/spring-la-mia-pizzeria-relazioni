@@ -18,7 +18,9 @@
     <li class="text-danger mb-2 fw-bold" th:text="${pizza.name}"></li>
     <p th:text="${pizza.description}"></p>
     <p th:text="${pizza.price} + €"></p>
-    <p><a class="btn btn-primary" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Show more</a></p>
+    <p><a class="btn btn-primary" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Show more</a>
+        <span><a class="btn btn-primary ml-3" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit Pizza</a></span></p>
+
 </ul>
 <hr>
 <div class="m-3">

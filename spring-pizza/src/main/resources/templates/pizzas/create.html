@@ -23,7 +23,7 @@
     th:action="@{/pizza/create}"
     class="row gy-3">
 
-        <div class="col-6">
+        <div class="col-8">
             <label class="form-label" for="name">Name</label>
             <input class="form-control" type="text" id="name" th:field="*{name}"
                    th:errorClass="is-invalid">
@@ -38,7 +38,6 @@
                 <label for="description" class="form-label">Pizza Description</label>
                 <textarea class="form-control" rows="10" id="description" th:field="*{description}"></textarea>
             </div>
-
 
             <div class="col-8">
                 <label class="form-label" for="price">Prezzo</label>
