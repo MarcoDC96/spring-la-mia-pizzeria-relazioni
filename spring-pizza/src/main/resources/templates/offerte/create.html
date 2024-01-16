@@ -17,10 +17,10 @@
     <h1>Create Offerta for <span th:text="${pizza.name}"></span></h1>
     <hr>
     <form
-            id="create-offertaspeciale"
+            id="create-offerta"
             method="post"
-            th:action="@{/offerte/create}"
-            th:object="${offertaspeciale}"
+            th:action="@{/offerta/create}"
+            th:object="${offerta}"
             class="row gy-3"
     >
         <input type="hidden" th:field="*{pizza}">
@@ -56,7 +56,7 @@
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}">Cancel</a>
+            <a class="btn btn-primary" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Cancel</a>
         </div>
     </form>
 </main>

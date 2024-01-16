@@ -32,7 +32,7 @@ public class OffertaSpecialeController {
             model.addAttribute("pizza", pizzaOffertaSpeciale);
             OffertaSpeciale offertaSpeciale = new OffertaSpeciale();
             offertaSpeciale.setPizza(pizzaOffertaSpeciale);
-            model.addAttribute("offertaspeciale", new OffertaSpeciale());
+            model.addAttribute("offerta", offertaSpeciale);
             return "offerte/create";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id: " + pizzaId + " not Found");
@@ -41,6 +41,6 @@ public class OffertaSpecialeController {
     @PostMapping("/create")
     public String store(OffertaSpeciale formOfferta){
         OffertaSpeciale offerteAttive = offertaSpecialeRepository.save(formOfferta);
-        return "redirect:/pizzas/show/" + offerteAttive.getPizza().getId();
+        return "redirect:/pizza/show/" + offerteAttive.getPizza().getId();
     }
 }
