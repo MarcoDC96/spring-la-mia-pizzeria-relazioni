@@ -10,20 +10,24 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.awt.print.Book;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Optional;
-
 @Controller
 @RequestMapping("/pizza")
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
     @GetMapping
-    public String index(Model model){
-        List<Pizza> pizzaList = pizzaRepository.findAll();
+    public String index(@RequestParam(name = "keyword", required = false) String searchKeyword,Model model){
+        List<Pizza> pizzaList;
+        if(searchKeyword != null){
+            pizzaList = pizzaRepository.findByNameContaining(searchKeyword);
+        } else {
+            pizzaList = pizzaRepository.findAll();
+        }
         model.addAttribute("pizzalist", pizzaList);
+        model.addAttribute("preloadSearch", searchKeyword);
         return "pizzas/list";
     }
 
@@ -81,6 +85,25 @@ public class PizzaController {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id" + id + "not found");
             }
         }
-
     }
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            pizzaRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("redirectMessage",
+                    "pizza" + result.get().getName() + " deleted!");
+            return "redirect:/pizza";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
+        }
+    }
+
+    /* @GetMapping("/search")
+    public String search(@RequestParam(name="keyword") String searchKeyword, Model model){
+        List<Pizza> pizzaList = pizzaRepository.findByNameContaining(searchKeyword);
+        model.addAttribute("pizzaList", pizzaList);
+        return "pizzas/list";
+    } */
+
 }
