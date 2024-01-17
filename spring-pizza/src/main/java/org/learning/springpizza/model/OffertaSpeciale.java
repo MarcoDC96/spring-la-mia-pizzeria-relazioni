@@ -1,6 +1,9 @@
 package org.learning.springpizza.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
@@ -12,6 +15,8 @@ public class OffertaSpeciale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
+    @NotNull(message = "Hey let's go")
     private LocalDate dataInizio;
     private LocalDate dataFine;
     @Lob

@@ -29,16 +29,18 @@
 
 </div>
 <section class="mt-5">
-    <h3>
+    <h4 class="mb-2">
         <span>Offerte</span>
         <a th:href="@{/offerta/create(pizzaId=${pizza.id})}" class="btn btn-primary">+</a>
-    </h3>
-    <table>
+    </h4>
+    <table  class="col-4 table">
         <thead>
         <tr>
             <th>Titolo</th>
             <th>Data Inizio</th>
             <th>Data fine</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -46,6 +48,18 @@
             <td th:text="${off.titolo}"></td>
             <td th:text="${off.dataInizio}"></td>
             <td th:text="${off.dataFine}"></td>
+            <td class="d-flex justify-content-around">
+                <a class="btn btn-primary" th:href="@{/offerta/edit/{id}(id=${off.id})}"><i
+                        class="fa-solid fa-pen-to-square"></i>Edit</a>
+                <form
+                        th:action="@{/offerta/delete/{id}(id=${off.id})}"
+                        method="post"
+                        onsubmit="return confirm('Are you sure?')"
+                >
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i>Delete
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
