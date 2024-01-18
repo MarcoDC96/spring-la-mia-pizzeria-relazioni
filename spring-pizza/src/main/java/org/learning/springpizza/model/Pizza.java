@@ -25,10 +25,11 @@ public class Pizza {
     @NotNull(message = "Prezzo non valido")
     @Column(nullable = false)
     private BigDecimal price;
-
-    @OneToMany(mappedBy = "pizza")
+    @OneToMany(mappedBy = "pizza", orphanRemoval = true)
     private List<OffertaSpeciale> offertespeciali;
 
+    @ManyToMany
+    private List<Ingredienti> ingredienti;
 
     public List<OffertaSpeciale> getOffertespeciali() {
         return offertespeciali;
@@ -76,5 +77,13 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<Ingredienti> getIngredienti() {
+        return ingredienti;
+    }
+
+    public void setIngredienti(List<Ingredienti> ingredienti) {
+        this.ingredienti = ingredienti;
     }
 }

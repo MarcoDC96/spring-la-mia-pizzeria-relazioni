@@ -20,7 +20,7 @@
         th:object="${pizza}"
         th:action="@{/pizza/edit/{id}(id=${pizza.id})}"
         class="row gy-3">
-
+    <div class="col-8">
     <div class="col-8">
         <label class="form-label" for="name">Name</label>
         <input class="form-control" type="text" id="name" th:field="*{name}"
@@ -45,6 +45,21 @@
             <ul>
                 <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
             </ul>
+        </div>
+    </div>
+        </div>
+        <div class="col-4">
+            <h4>Ingredienti:</h4>
+            <div class="form-check" th:each="ing : ${listaingredienti}">
+                <input
+                        class="form-check-input"
+                        type="checkbox"
+                        th:value="${ing.id}"
+                        th:id="|ing-${ing.id}|"
+                        th:field="*{ingredienti}"
+                >
+                <label class="form-check-label" th:for="|cat-${ing.id}|" th:text="${ing.name}"></label>
+            </div>
         </div>
     </div>
     <div class="col-12 mt-4">

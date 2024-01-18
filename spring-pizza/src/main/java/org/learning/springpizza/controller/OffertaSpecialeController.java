@@ -45,16 +45,13 @@ public class OffertaSpecialeController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        // recupero il Borrowing con quell'id da database
         Optional<OffertaSpeciale> result = offertaSpecialeRepository.findById(id);
-        // se è presente precarico il form con il Borrowing
         if (result.isPresent()) {
             model.addAttribute("offertaspeciale", result.get());
             return "offerte/edit";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta Speciale with id " + id
                     + " not found");
-
         }
     }
 
